@@ -1,0 +1,41 @@
+@import '@fontsource-variable/manrope/index.css';
+@import '@fontsource-variable/newsreader/index.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+
+:root {
+  font-family: 'Manrope Variable', sans-serif;
+  color: #292a26;
+  background: #dcd8ce;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 720px;
+  height: 560px;
+  margin: 0;
+  overflow: hidden;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  color: inherit;
+}
+
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid #ff805f;
+  outline-offset: 2px;
+}
