@@ -1,12 +1,11 @@
 @import '@fontsource-variable/manrope/index.css';
-@import '@fontsource-variable/newsreader/index.css';
 @import '@fontsource/ibm-plex-mono/400.css';
 @import '@fontsource/ibm-plex-mono/500.css';
 
 :root {
   font-family: 'Manrope Variable', sans-serif;
   color: #292a26;
-  background: #dcd8ce;
+  background: #ffffff;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -19,8 +18,8 @@
 html,
 body,
 #root {
-  width: 720px;
-  height: 560px;
+  width: 560px;
+  height: 380px;
   margin: 0;
   overflow: hidden;
 }

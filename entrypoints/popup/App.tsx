@@ -118,7 +118,7 @@ function App() {
     return (
       <div className="loading-shell">
         <LeafMark />
-        <span>{saveStatus === 'error' ? 'Could not open Headerleaf' : 'Opening your desk…'}</span>
+        <span>{saveStatus === 'error' ? 'Could not open Headerleaf' : 'Loading…'}</span>
       </div>
     );
   }
@@ -128,15 +128,12 @@ function App() {
       <aside className="group-rail">
         <div className="brand">
           <LeafMark />
-          <div>
-            <strong>Headerleaf</strong>
-            <span>request desk</span>
-          </div>
+          <strong>Headerleaf</strong>
         </div>
 
-        <p className="rail-label">GROUPS</p>
+        <p className="rail-label">PROFILES</p>
         <nav className="group-list" aria-label="Header groups">
-          {state.groups.map((group, index) => (
+          {state.groups.map((group) => (
             <button
               className={`group-tab ${group.id === state.activeGroupId ? 'is-active' : ''}`}
               key={group.id}
@@ -144,28 +141,24 @@ function App() {
               style={{ '--tab-color': group.color } as CSSProperties}
               title={group.name}
             >
-              <span className="tab-index">{String(index + 1).padStart(2, '0')}</span>
               <span className="tab-name">{group.name || 'Untitled'}</span>
-              <span className="tab-count">{group.headers.filter((item) => item.enabled).length}</span>
+              <span className="tab-count">
+                {group.headers.filter((item) => item.enabled && item.key.trim()).length}
+              </span>
             </button>
           ))}
         </nav>
 
         <button className="new-group" onClick={addGroup}>
           <PlusIcon />
-          New group
+          New profile
         </button>
-
-        <div className="rail-note">
-          <span className="note-dot" />
-          Changes are local
-        </div>
       </aside>
 
       <main className="workspace">
         <header className="workspace-header">
           <div className="title-stack">
-            <span className="eyebrow">ACTIVE SHEET</span>
+            <span className="eyebrow">REQUEST HEADERS</span>
             <input
               className="group-title"
               aria-label="Group name"
@@ -180,7 +173,7 @@ function App() {
           <div className="header-actions">
             <div className={`live-badge ${activeCount ? 'is-live' : ''}`}>
               <span />
-              {activeCount ? `${activeCount} live` : 'idle'}
+              {activeCount ? `${activeCount} active` : 'inactive'}
             </div>
             <button
               className="icon-button"
@@ -194,8 +187,7 @@ function App() {
           </div>
         </header>
 
-        <section className="paper" aria-label={`${activeGroup.name} headers`}>
-          <div className="paper-rule" />
+        <section className="header-panel" aria-label={`${activeGroup.name} headers`}>
           <div className="column-headings">
             <span>ON</span>
             <span>HEADER KEY</span>
@@ -253,16 +245,15 @@ function App() {
             {activeGroup.headers.length === 0 && (
               <div className="empty-state">
                 <span className="empty-glyph">H:</span>
-                <strong>A clean sheet.</strong>
-                <p>Add a header row to start shaping requests.</p>
+                <strong>No headers</strong>
+                <p>Add a row to this profile.</p>
               </div>
             )}
           </div>
 
           <button className="add-header" onClick={addHeader}>
             <PlusIcon />
-            Add header
-            <span>⌘ ↵</span>
+            Add row
           </button>
         </section>
 
@@ -273,7 +264,7 @@ function App() {
             {saveStatus === 'error' && 'Save failed'}
             {saveStatus === 'idle' && 'Applied automatically'}
           </span>
-          <span>Only the selected sheet can modify requests.</span>
+          <span>Only the selected profile is applied.</span>
         </footer>
       </main>
     </div>
