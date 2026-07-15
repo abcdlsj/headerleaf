@@ -326,14 +326,14 @@
 .column-headings,
 .header-row {
   display: grid;
-  grid-template-columns: 25px minmax(130px, 0.85fr) minmax(155px, 1.15fr) 23px;
-  gap: 8px;
+  grid-template-columns: 27px minmax(130px, 0.85fr) minmax(155px, 1.15fr) 28px;
+  gap: 10px;
   align-items: center;
 }
 
 .column-headings {
-  min-height: 32px;
-  padding: 0 9px;
+  min-height: 34px;
+  padding: 0 10px;
   color: #929790;
   font-family: 'DM Mono', monospace;
   font-size: 9.5px;
@@ -352,8 +352,8 @@
 }
 
 .header-row {
-  min-height: 49px;
-  padding: 6px 9px;
+  min-height: 53px;
+  padding: 7px 10px;
   border-bottom: 1px solid #edf0eb;
   animation: row-arrive 180ms both ease-out;
   animation-delay: var(--row-delay);
@@ -377,8 +377,8 @@
 
 .check-wrap {
   display: grid;
-  width: 24px;
-  height: 28px;
+  width: 27px;
+  height: 32px;
   place-items: center;
   cursor: pointer;
 }
@@ -429,11 +429,12 @@
 .header-input {
   width: 100%;
   min-width: 0;
-  height: 34px;
-  padding: 0 8px;
+  height: 36px;
+  padding: 0 10px;
   color: #353934;
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
+  font-family: 'Instrument Sans Variable', sans-serif;
+  font-size: 12.5px;
+  letter-spacing: 0.01em;
   border: 1px solid #e8ebe7;
   border-radius: 4px;
   outline: none;
@@ -456,7 +457,7 @@
 }
 
 .key-input {
-  font-weight: 500;
+  font-weight: 620;
 }
 
 .value-input {

@@ -89,7 +89,13 @@ function App() {
 
   const deleteActiveGroup = () => {
     if (!state || state.groups.length === 1 || !activeGroup) return;
-    const groups = state.groups.filter((group) => group.id !== activeGroup.id);
+    const groups = state.groups
+      .filter((group) => group.id !== activeGroup.id)
+      .map((group, index) =>
+        /^Group \d+$/.test(group.name.trim())
+          ? { ...group, name: `Group ${index + 1}` }
+          : group,
+      );
     commit({ groups, activeGroupId: groups[0].id });
   };
 
