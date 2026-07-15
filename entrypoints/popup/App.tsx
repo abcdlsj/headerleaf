@@ -153,6 +153,7 @@ function App() {
 
         <button className="new-group" onClick={addGroup} aria-label="New profile" title="New profile">
           <PlusIcon />
+          <span>New profile</span>
         </button>
       </aside>
 
