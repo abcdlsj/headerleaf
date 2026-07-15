@@ -22,6 +22,22 @@ export interface HeaderleafState {
 export const STORAGE_KEY = 'headerleaf-state';
 export const RULE_ID = 8181;
 
+const RESOURCE_TYPES = [
+  'main_frame',
+  'sub_frame',
+  'stylesheet',
+  'script',
+  'image',
+  'font',
+  'object',
+  'xmlhttprequest',
+  'ping',
+  'csp_report',
+  'media',
+  'websocket',
+  'other',
+] as const;
+
 export const GROUP_COLORS = [
   '#FF8B6A',
   '#F6C95F',
@@ -114,7 +130,7 @@ export async function syncDynamicRules(state: HeaderleafState): Promise<void> {
               requestHeaders,
             },
             condition: {
-              urlFilter: '*',
+              resourceTypes: [...RESOURCE_TYPES],
             },
           },
         ]

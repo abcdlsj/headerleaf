@@ -7,7 +7,7 @@ export default defineConfig({
     name: 'Headerleaf',
     description: 'Switch grouped request headers without leaving your tab.',
     version: '0.1.0',
-    permissions: ['storage', 'declarativeNetRequest'],
+    permissions: ['storage', 'declarativeNetRequestWithHostAccess'],
     host_permissions: ['<all_urls>'],
     action: {
       default_title: 'Headerleaf',

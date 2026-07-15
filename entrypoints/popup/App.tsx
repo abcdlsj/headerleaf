@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState, type CSSProperties } from 'react';
+import { browser } from 'wxt/browser';
 import {
   GROUP_COLORS,
   createHeader,
@@ -51,6 +52,10 @@ function App() {
     setState(next);
     setSaveStatus('saving');
     void saveState(next)
+      .then(async () => {
+        const response = await browser.runtime.sendMessage({ type: 'headerleaf:sync' });
+        if (response?.ok === false) throw new Error(response.error || 'Sync failed');
+      })
       .then(() => {
         setSaveStatus('saved');
         window.setTimeout(() => setSaveStatus('idle'), 1100);
