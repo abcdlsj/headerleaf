@@ -69,7 +69,7 @@
 }
 
 .brand-wordmark span {
-  font-family: 'Azeret Mono Variable', monospace;
+  font-family: 'DM Mono', monospace;
   font-size: 8px;
   font-weight: 500;
   letter-spacing: 0.12em;
@@ -147,7 +147,7 @@
 
 .tab-count {
   color: var(--quiet);
-  font-family: 'Azeret Mono Variable', monospace;
+  font-family: 'DM Mono', monospace;
   font-size: 10px;
 }
 
@@ -164,16 +164,17 @@
   color: #767b74;
   font-size: 10px;
   font-weight: 620;
-  border: 1px solid transparent;
-  border-radius: 5px;
-  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
   cursor: pointer;
   transition: color 130ms ease, background 130ms ease;
 }
 
 .new-group:hover {
   color: var(--ink);
-  background: var(--surface-hover);
+  border-color: #cbd6f5;
+  background: var(--accent-soft);
 }
 
 .new-group svg,
@@ -242,13 +243,13 @@
   gap: 5px;
   padding: 0 8px;
   color: var(--muted);
-  font-family: 'Azeret Mono Variable', monospace;
+  font-family: 'DM Mono', monospace;
   font-size: 10px;
   font-weight: 500;
   text-transform: uppercase;
-  border: 0;
-  border-radius: 5px;
-  background: #f5f7f5;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
 }
 
 .live-badge span {
@@ -260,6 +261,7 @@
 
 .live-badge.is-live {
   color: #3b58b6;
+  border-color: #d9e1fb;
   background: var(--accent-soft);
 }
 
@@ -273,20 +275,23 @@
   padding: 0;
   place-items: center;
   color: #929790;
-  border: 0;
-  border-radius: 5px;
+  border: 1px solid transparent;
+  border-radius: 6px;
   background: transparent;
   cursor: pointer;
 }
 
 .icon-button {
-  width: 27px;
-  height: 27px;
+  width: 30px;
+  height: 30px;
+  border-color: var(--line);
+  background: #fff;
 }
 
 .icon-button:hover:not(:disabled),
 .row-delete:hover {
   color: #b95340;
+  border-color: #f0d5cf;
   background: #fff2ef;
 }
 
@@ -330,7 +335,7 @@
   min-height: 32px;
   padding: 0 9px;
   color: #929790;
-  font-family: 'Azeret Mono Variable', monospace;
+  font-family: 'DM Mono', monospace;
   font-size: 9.5px;
   font-weight: 500;
   letter-spacing: 0.09em;
@@ -427,7 +432,7 @@
   height: 34px;
   padding: 0 8px;
   color: #353934;
-  font-family: 'Azeret Mono Variable', monospace;
+  font-family: 'DM Mono', monospace;
   font-size: 12px;
   border: 1px solid #e8ebe7;
   border-radius: 4px;
@@ -459,8 +464,8 @@
 }
 
 .row-delete {
-  width: 23px;
-  height: 23px;
+  width: 28px;
+  height: 28px;
   opacity: 0;
   transition: opacity 120ms ease, color 120ms ease, background 120ms ease;
 }
@@ -483,9 +488,8 @@
   font-size: 11.5px;
   font-weight: 650;
   text-align: left;
-  border: 0;
-  border: 0;
-  border-radius: 5px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
   background: #fff;
   cursor: pointer;
   transition: color 120ms ease, background 120ms ease;
@@ -493,7 +497,8 @@
 
 .add-header:hover {
   color: var(--ink);
-  background: #f8faf7;
+  border-color: #cbd6f5;
+  background: var(--accent-soft);
 }
 
 .empty-state {
@@ -513,7 +518,7 @@
   margin-bottom: 8px;
   place-items: center;
   color: #959a93;
-  font-family: 'Azeret Mono Variable', monospace;
+  font-family: 'DM Mono', monospace;
   font-size: 12px;
   border: 1px solid #d7dbd5;
   border-radius: 5px;
@@ -544,7 +549,7 @@
 .save-state {
   position: relative;
   padding-left: 9px;
-  font-family: 'Azeret Mono Variable', monospace;
+  font-family: 'DM Mono', monospace;
 }
 
 .save-state::before {
@@ -583,7 +588,7 @@
   flex-direction: column;
   gap: 8px;
   color: var(--muted);
-  font-family: 'Azeret Mono Variable', monospace;
+  font-family: 'DM Mono', monospace;
   font-size: 10px;
   background: #fff;
 }

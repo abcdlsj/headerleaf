@@ -17,7 +17,7 @@
   "dependencies": {
     "@fontsource-variable/bricolage-grotesque": "^5.2.8",
     "@fontsource-variable/instrument-sans": "^5.2.8",
-    "@fontsource-variable/azeret-mono": "^5.2.8",
+    "@fontsource/dm-mono": "^5.2.7",
     "react": "^19.2.4",
     "react-dom": "^19.2.4"
   },
