@@ -179,8 +179,8 @@
 
 .new-group svg,
 .add-header svg {
-  width: 13px;
-  height: 13px;
+  width: 14px;
+  height: 14px;
   fill: none;
   stroke: currentColor;
   stroke-width: 1.8;
@@ -238,7 +238,7 @@
 
 .live-badge {
   display: flex;
-  height: 27px;
+  height: 32px;
   align-items: center;
   gap: 5px;
   padding: 0 8px;
@@ -283,7 +283,7 @@
 
 .icon-button {
   width: 30px;
-  height: 30px;
+  height: 32px;
   border-color: var(--line);
   background: #fff;
 }
@@ -318,7 +318,7 @@
   flex-direction: column;
   overflow: hidden;
   border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
+  border-bottom: 0;
   border-radius: 0;
   background: #fff;
 }
@@ -477,8 +477,8 @@
 
 .add-header {
   display: flex;
-  width: 34px;
-  min-height: 34px;
+  width: 32px;
+  min-height: 32px;
   flex: 0 0 auto;
   align-items: center;
   justify-content: center;
