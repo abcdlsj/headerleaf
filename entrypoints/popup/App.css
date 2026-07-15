@@ -69,7 +69,7 @@
 }
 
 .brand-wordmark span {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Azeret Mono Variable', monospace;
   font-size: 8px;
   font-weight: 500;
   letter-spacing: 0.12em;
@@ -147,7 +147,7 @@
 
 .tab-count {
   color: var(--quiet);
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Azeret Mono Variable', monospace;
   font-size: 10px;
 }
 
@@ -158,10 +158,11 @@
   flex: 0 0 auto;
   align-items: center;
   justify-content: flex-start;
-  gap: 6px;
-  padding: 0 7px;
+  gap: 5px;
+  padding: 0 5px;
+  white-space: nowrap;
   color: #767b74;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 620;
   border: 1px solid transparent;
   border-radius: 5px;
@@ -241,7 +242,7 @@
   gap: 5px;
   padding: 0 8px;
   color: var(--muted);
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Azeret Mono Variable', monospace;
   font-size: 10px;
   font-weight: 500;
   text-transform: uppercase;
@@ -329,7 +330,7 @@
   min-height: 32px;
   padding: 0 9px;
   color: #929790;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Azeret Mono Variable', monospace;
   font-size: 9.5px;
   font-weight: 500;
   letter-spacing: 0.09em;
@@ -426,7 +427,7 @@
   height: 34px;
   padding: 0 8px;
   color: #353934;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Azeret Mono Variable', monospace;
   font-size: 12px;
   border: 1px solid #e8ebe7;
   border-radius: 4px;
@@ -512,7 +513,7 @@
   margin-bottom: 8px;
   place-items: center;
   color: #959a93;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Azeret Mono Variable', monospace;
   font-size: 12px;
   border: 1px solid #d7dbd5;
   border-radius: 5px;
@@ -543,7 +544,7 @@
 .save-state {
   position: relative;
   padding-left: 9px;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Azeret Mono Variable', monospace;
 }
 
 .save-state::before {
@@ -582,7 +583,7 @@
   flex-direction: column;
   gap: 8px;
   color: var(--muted);
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Azeret Mono Variable', monospace;
   font-size: 10px;
   background: #fff;
 }
