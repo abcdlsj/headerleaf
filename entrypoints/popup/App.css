@@ -65,7 +65,6 @@
   flex-direction: column;
   color: var(--ink);
   line-height: 0.82;
-  text-transform: uppercase;
 }
 
 .brand-wordmark span {
