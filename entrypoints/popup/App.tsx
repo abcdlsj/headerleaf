@@ -151,9 +151,8 @@ function App() {
           ))}
         </nav>
 
-        <button className="new-group" onClick={addGroup}>
+        <button className="new-group" onClick={addGroup} aria-label="New profile" title="New profile">
           <PlusIcon />
-          New profile
         </button>
       </aside>
 
@@ -252,9 +251,8 @@ function App() {
             )}
           </div>
 
-          <button className="add-header" onClick={addHeader}>
+          <button className="add-header" onClick={addHeader} aria-label="Add header" title="Add header">
             <PlusIcon />
-            Add header
           </button>
         </section>
 

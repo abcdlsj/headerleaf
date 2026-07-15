@@ -1,10 +1,11 @@
-@import '@fontsource-variable/manrope/index.css';
+@import '@fontsource-variable/instrument-sans/index.css';
+@import '@fontsource-variable/bricolage-grotesque/index.css';
 @import '@fontsource/ibm-plex-mono/400.css';
 @import '@fontsource/ibm-plex-mono/500.css';
 
 :root {
-  font-family: 'Manrope Variable', sans-serif;
-  color: #292a26;
+  font-family: 'Instrument Sans Variable', sans-serif;
+  color: #17241f;
   background: #ffffff;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -35,6 +36,6 @@ button {
 
 button:focus-visible,
 input:focus-visible {
-  outline: 2px solid #ff805f;
+  outline: 2px solid #4568df;
   outline-offset: 2px;
 }

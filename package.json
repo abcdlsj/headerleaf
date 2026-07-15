@@ -15,7 +15,8 @@
     "postinstall": "wxt prepare"
   },
   "dependencies": {
-    "@fontsource-variable/manrope": "^5.2.8",
+    "@fontsource-variable/bricolage-grotesque": "^5.2.8",
+    "@fontsource-variable/instrument-sans": "^5.2.8",
     "@fontsource/ibm-plex-mono": "^5.2.6",
     "react": "^19.2.4",
     "react-dom": "^19.2.4"
