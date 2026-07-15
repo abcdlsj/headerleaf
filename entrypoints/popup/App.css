@@ -536,49 +536,6 @@
   font-size: 10px;
 }
 
-.workspace-footer {
-  display: flex;
-  min-height: 25px;
-  flex: 0 0 auto;
-  align-items: flex-end;
-  justify-content: space-between;
-  color: #969a94;
-  font-size: 10px;
-}
-
-.save-state {
-  position: relative;
-  padding-left: 9px;
-  font-family: 'DM Mono', monospace;
-}
-
-.save-state::before {
-  position: absolute;
-  top: 4px;
-  left: 0;
-  width: 4px;
-  height: 4px;
-  content: '';
-  border-radius: 50%;
-  background: #a0a49e;
-}
-
-.save-saved::before {
-  background: var(--green);
-}
-
-.save-saving::before {
-  background: #d5a03a;
-}
-
-.save-error {
-  color: #b64e3e;
-}
-
-.save-error::before {
-  background: #b64e3e;
-}
-
 .loading-shell {
   display: flex;
   width: 100%;

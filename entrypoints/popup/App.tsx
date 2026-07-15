@@ -262,14 +262,6 @@ function App() {
           </button>
         </section>
 
-        <footer className="workspace-footer">
-          <span className={`save-state save-${saveStatus}`}>
-            {saveStatus === 'saving' && 'Saving…'}
-            {saveStatus === 'saved' && 'Saved'}
-            {saveStatus === 'error' && 'Save failed'}
-            {saveStatus === 'idle' && 'Ready'}
-          </span>
-        </footer>
       </main>
     </div>
   );
