@@ -128,10 +128,12 @@ function App() {
       <aside className="group-rail">
         <div className="brand">
           <LeafMark />
-          <strong>Headerleaf</strong>
+          <div className="brand-wordmark" aria-label="Headerleaf">
+            <span>header</span>
+            <strong>leaf</strong>
+          </div>
         </div>
 
-        <p className="rail-label">PROFILES</p>
         <nav className="group-list" aria-label="Header groups">
           {state.groups.map((group) => (
             <button
@@ -158,7 +160,6 @@ function App() {
       <main className="workspace">
         <header className="workspace-header">
           <div className="title-stack">
-            <span className="eyebrow">REQUEST HEADERS</span>
             <input
               className="group-title"
               aria-label="Group name"
@@ -173,7 +174,7 @@ function App() {
           <div className="header-actions">
             <div className={`live-badge ${activeCount ? 'is-live' : ''}`}>
               <span />
-              {activeCount ? `${activeCount} active` : 'inactive'}
+              {activeCount ? `${activeCount} active` : 'none active'}
             </div>
             <button
               className="icon-button"
@@ -190,8 +191,8 @@ function App() {
         <section className="header-panel" aria-label={`${activeGroup.name} headers`}>
           <div className="column-headings">
             <span>ON</span>
-            <span>HEADER KEY</span>
-            <span>HEADER VALUE</span>
+            <span>KEY</span>
+            <span>VALUE</span>
             <span />
           </div>
 
@@ -253,7 +254,7 @@ function App() {
 
           <button className="add-header" onClick={addHeader}>
             <PlusIcon />
-            Add row
+            Add header
           </button>
         </section>
 
@@ -262,9 +263,8 @@ function App() {
             {saveStatus === 'saving' && 'Saving…'}
             {saveStatus === 'saved' && 'Saved'}
             {saveStatus === 'error' && 'Save failed'}
-            {saveStatus === 'idle' && 'Applied automatically'}
+            {saveStatus === 'idle' && 'Ready'}
           </span>
-          <span>Only the selected profile is applied.</span>
         </footer>
       </main>
     </div>
