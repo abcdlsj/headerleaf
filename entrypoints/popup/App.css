@@ -193,7 +193,7 @@
   display: flex;
   min-width: 0;
   flex-direction: column;
-  padding: 18px 20px 16px;
+  padding: 18px 20px 14px;
   background: #fff;
 }
 
@@ -340,10 +340,10 @@
 .column-headings,
 .header-row {
   display: grid;
-  grid-template-columns: 28px minmax(128px, 0.9fr) minmax(150px, 1.1fr) 28px;
+  grid-template-columns: 36px minmax(128px, 0.9fr) minmax(150px, 1.1fr) 28px;
   gap: 14px;
   align-items: center;
-  padding: 0 12px;
+  padding: 0;
 }
 
 .column-headings {
@@ -403,7 +403,7 @@
 
 .check-wrap {
   display: grid;
-  width: 28px;
+  width: 36px;
   height: 40px;
   place-items: center;
   cursor: pointer;
@@ -508,16 +508,16 @@
 
 .panel-footer {
   display: flex;
-  min-height: 44px;
+  min-height: 36px;
   flex: 0 0 auto;
   align-items: center;
-  padding: 0 10px;
+  padding: 0;
   background: #fff;
 }
 
 .add-header {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   color: #fff;
   border-color: var(--accent);
   border-radius: 9px;
