@@ -340,8 +340,8 @@
 .column-headings,
 .header-row {
   display: grid;
-  grid-template-columns: 30px minmax(128px, 0.9fr) minmax(150px, 1.1fr) 32px;
-  gap: 10px;
+  grid-template-columns: 28px minmax(128px, 0.9fr) minmax(150px, 1.1fr) 28px;
+  gap: 14px;
   align-items: center;
   padding: 0 12px;
 }
@@ -357,6 +357,11 @@
   background: #fff;
 }
 
+.column-headings > span:first-child,
+.column-headings > span:last-child {
+  justify-self: center;
+}
+
 .header-list {
   min-height: 0;
   flex: 1;
@@ -366,7 +371,7 @@
 }
 
 .header-row {
-  min-height: 58px;
+  min-height: 56px;
   border-bottom: 1px solid #eff1ef;
   animation: row-arrive 180ms both ease-out;
   animation-delay: var(--row-delay);
@@ -398,8 +403,8 @@
 
 .check-wrap {
   display: grid;
-  width: 30px;
-  height: 38px;
+  width: 28px;
+  height: 40px;
   place-items: center;
   cursor: pointer;
 }
@@ -413,8 +418,8 @@
 
 .custom-check {
   display: grid;
-  width: 18px;
-  height: 18px;
+  width: 19px;
+  height: 19px;
   place-items: center;
   border: 1px solid #b8c0bb;
   border-radius: 5px;
@@ -450,18 +455,19 @@
 .header-input {
   width: 100%;
   min-width: 0;
-  height: 38px;
-  padding: 0 11px;
-  color: #2f3531;
-  font-family: 'Outfit Variable', sans-serif;
-  font-size: 13.5px;
-  font-weight: 470;
-  letter-spacing: 0;
-  border: 1px solid #e4e8e5;
-  border-radius: 9px;
+  height: 40px;
+  padding: 0 2px;
+  color: #29302c;
+  font-family: 'Schibsted Grotesk Variable', sans-serif;
+  font-size: 14.5px;
+  font-weight: 510;
+  letter-spacing: -0.12px;
+  border: 0;
+  border-bottom: 1px solid #dfe4e1;
+  border-radius: 0;
   outline: none;
-  background: #f9faf9;
-  transition: color 150ms ease, border-color 150ms ease, background 150ms ease, box-shadow 150ms ease;
+  background: transparent;
+  transition: color 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
 }
 
 .header-input::placeholder {
@@ -469,19 +475,17 @@
 }
 
 .header-input:hover {
-  border-color: #ccd3cf;
-  background: #fff;
+  border-color: #bfc8c2;
 }
 
 .header-input:focus {
   color: #24305e;
-  border-color: #9bacef;
-  background: #fff;
-  box-shadow: 0 0 0 3px rgba(73, 103, 232, 0.1);
+  border-color: var(--accent);
+  box-shadow: 0 1px 0 var(--accent);
 }
 
 .key-input {
-  font-weight: 620;
+  font-weight: 650;
 }
 
 .value-input {
@@ -489,8 +493,8 @@
 }
 
 .row-delete {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   color: #949b97;
   border-color: transparent;
   border-radius: 9px;
@@ -507,7 +511,7 @@
   min-height: 44px;
   flex: 0 0 auto;
   align-items: center;
-  padding: 0;
+  padding: 0 10px;
   background: #fff;
 }
 
