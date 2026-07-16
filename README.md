@@ -97,3 +97,7 @@ The source layout used to render the store screenshot is kept in [docs/store-scr
 ## License
 
 [MIT](LICENSE)
+
+## Privacy
+
+[Privacy Policy](PRIVACY.md)
