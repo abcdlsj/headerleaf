@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Headerleaf — Chrome Web Store Screenshot</title>
+    <style>
+      @import url('../node_modules/@fontsource-variable/bricolage-grotesque/index.css');
+      @import url('../node_modules/@fontsource-variable/outfit/index.css');
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 1280px;
+        height: 800px;
+        margin: 0;
+        overflow: hidden;
+      }
+
+      body {
+        color: #202522;
+        font-family: 'Outfit Variable', sans-serif;
+        background:
+          radial-gradient(circle at 10% 9%, rgba(255, 197, 91, 0.24), transparent 22%),
+          radial-gradient(circle at 94% 2%, rgba(76, 105, 232, 0.18), transparent 28%),
+          linear-gradient(145deg, #f8faf7 0%, #f4f7ff 100%);
+      }
+
+      .stage {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .stage::before {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 348px;
+        width: 1px;
+        content: '';
+        background: linear-gradient(transparent 8%, rgba(41, 50, 45, 0.1) 24%, rgba(41, 50, 45, 0.1) 76%, transparent 92%);
+      }
+
+      .brand {
+        position: absolute;
+        top: 58px;
+        left: 68px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .brand img {
+        width: 64px;
+        height: 64px;
+        border-radius: 15px;
+        box-shadow: 0 12px 26px rgba(32, 37, 34, 0.17);
+      }
+
+      .wordmark {
+        display: flex;
+        flex-direction: column;
+        font-family: 'Bricolage Grotesque Variable', sans-serif;
+        line-height: 0.8;
+      }
+
+      .wordmark span {
+        margin-left: 1px;
+        color: #69746d;
+        font-size: 13px;
+        font-weight: 520;
+        letter-spacing: 0.15em;
+      }
+
+      .wordmark strong {
+        margin-top: 7px;
+        font-size: 30px;
+        font-weight: 740;
+        letter-spacing: -1.2px;
+      }
+
+      .wordmark i {
+        color: #4967e8;
+        font-style: normal;
+      }
+
+      .copy {
+        position: absolute;
+        top: 238px;
+        left: 68px;
+        width: 245px;
+      }
+
+      .copy h1 {
+        margin: 0;
+        font-family: 'Bricolage Grotesque Variable', sans-serif;
+        font-size: 55px;
+        font-weight: 650;
+        line-height: 0.98;
+        letter-spacing: -2.9px;
+      }
+
+      .copy h1 span {
+        color: #4967e8;
+      }
+
+      .copy p {
+        margin: 25px 0 0;
+        color: #65716a;
+        font-size: 18px;
+        font-weight: 430;
+        line-height: 1.45;
+      }
+
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 30px;
+      }
+
+      .tag {
+        padding: 8px 12px;
+        color: #3f4c45;
+        font-size: 12px;
+        font-weight: 560;
+        border: 1px solid rgba(63, 76, 69, 0.15);
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.55);
+      }
+
+      .product {
+        position: absolute;
+        top: 142px;
+        left: 390px;
+        width: 824px;
+        overflow: hidden;
+        border: 1px solid rgba(35, 46, 39, 0.12);
+        border-radius: 20px;
+        background: #fff;
+        box-shadow:
+          0 32px 70px rgba(37, 52, 43, 0.18),
+          0 4px 12px rgba(37, 52, 43, 0.08);
+      }
+
+      .browser-bar {
+        display: flex;
+        height: 38px;
+        align-items: center;
+        gap: 7px;
+        padding: 0 15px;
+        border-bottom: 1px solid #ecefeb;
+        background: #fbfcfb;
+      }
+
+      .browser-bar span {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #d7dcd8;
+      }
+
+      .browser-bar span:first-child {
+        background: #ff8061;
+      }
+
+      .browser-bar span:nth-child(2) {
+        background: #f0c85c;
+      }
+
+      .browser-bar span:nth-child(3) {
+        background: #75c9a6;
+      }
+
+      .product img {
+        display: block;
+        width: 824px;
+        height: auto;
+      }
+
+      .footnote {
+        position: absolute;
+        right: 68px;
+        bottom: 49px;
+        color: #7a857e;
+        font-size: 13px;
+        font-weight: 520;
+        letter-spacing: 0.02em;
+      }
+
+      .footnote b {
+        color: #3a9d78;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="stage">
+      <div class="brand">
+        <img src="./images/headerleaf-icon-128.png" alt="" />
+        <div class="wordmark">
+          <span>header</span>
+          <strong>leaf<i>.</i></strong>
+        </div>
+      </div>
+
+      <section class="copy">
+        <h1>Request headers,<br /><span>organized.</span></h1>
+        <p>Create profiles, switch contexts, and keep every API request under control.</p>
+        <div class="tags">
+          <span class="tag">Manifest V3</span>
+          <span class="tag">Local-first</span>
+          <span class="tag">No page scripts</span>
+        </div>
+      </section>
+
+      <section class="product">
+        <div class="browser-bar"><span></span><span></span><span></span></div>
+        <img src="./images/headerleaf-popup.png" alt="Headerleaf extension popup" />
+      </section>
+
+      <p class="footnote"><b>●</b>&nbsp; One active profile. Zero request friction.</p>
+    </main>
+  </body>
+</html>
