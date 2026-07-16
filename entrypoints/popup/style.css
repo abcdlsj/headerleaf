@@ -1,11 +1,9 @@
-@import '@fontsource-variable/instrument-sans/index.css';
 @import '@fontsource-variable/bricolage-grotesque/index.css';
-@import '@fontsource/dm-mono/400.css';
-@import '@fontsource/dm-mono/500.css';
+@import '@fontsource-variable/outfit/index.css';
 
 :root {
-  font-family: 'Instrument Sans Variable', sans-serif;
-  color: #17241f;
+  font-family: 'Outfit Variable', sans-serif;
+  color: #202522;
   background: #ffffff;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -19,8 +17,8 @@
 html,
 body,
 #root {
-  width: 560px;
-  height: 380px;
+  width: 580px;
+  height: 320px;
   margin: 0;
   overflow: hidden;
 }
@@ -36,6 +34,6 @@ button {
 
 button:focus-visible,
 input:focus-visible {
-  outline: 2px solid #4568df;
+  outline: 2px solid #4967e8;
   outline-offset: 2px;
 }

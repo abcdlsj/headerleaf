@@ -138,10 +138,9 @@ function App() {
     <div className="app-shell">
       <aside className="group-rail">
         <div className="brand">
-          <LeafMark />
           <div className="brand-wordmark" aria-label="Headerleaf">
             <span>header</span>
-            <strong>leaf</strong>
+            <strong>leaf<span>.</span></strong>
           </div>
         </div>
 
@@ -154,10 +153,8 @@ function App() {
               style={{ '--tab-color': group.color } as CSSProperties}
               title={group.name}
             >
+              <span className="tab-color" />
               <span className="tab-name">{group.name || 'Untitled'}</span>
-              <span className="tab-count">
-                {group.headers.filter((item) => item.enabled && item.key.trim()).length}
-              </span>
             </button>
           ))}
         </nav>
@@ -183,9 +180,13 @@ function App() {
           </div>
 
           <div className="header-actions">
-            <div className={`live-badge ${activeCount ? 'is-live' : ''}`}>
+            <div className={`live-badge ${activeCount ? 'is-live' : ''} ${saveStatus === 'error' ? 'is-error' : ''}`}>
               <span />
-              {activeCount ? `${activeCount} active` : 'none active'}
+              {saveStatus === 'error'
+                ? 'sync error'
+                : activeCount
+                  ? `${activeCount} active`
+                  : 'inactive'}
             </div>
             <button
               className="icon-button"
@@ -263,9 +264,11 @@ function App() {
             )}
           </div>
 
-          <button className="add-header" onClick={addHeader} aria-label="Add header" title="Add header">
-            <PlusIcon />
-          </button>
+          <div className="panel-footer">
+            <button className="add-header" onClick={addHeader} aria-label="Add header" title="Add header">
+              <PlusIcon />
+            </button>
+          </div>
         </section>
 
       </main>

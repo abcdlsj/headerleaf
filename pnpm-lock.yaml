@@ -11,12 +11,9 @@ importers:
       '@fontsource-variable/bricolage-grotesque':
         specifier: ^5.2.8
         version: 5.2.10
-      '@fontsource-variable/instrument-sans':
+      '@fontsource-variable/outfit':
         specifier: ^5.2.8
         version: 5.2.8
-      '@fontsource/dm-mono':
-        specifier: ^5.2.7
-        version: 5.2.7
       react:
         specifier: ^19.2.4
         version: 19.2.7
@@ -261,11 +258,8 @@ packages:
   '@fontsource-variable/bricolage-grotesque@5.2.10':
     resolution: {integrity: sha512-5EDsCqgGpKVcJWE4sg9ydli+t5WM97mISYw5lla/Ev4z71FwXh1oN0YUU8xjkRW9+wBCGD9R+ntAvI8G4bUFJg==}
 
-  '@fontsource-variable/instrument-sans@5.2.8':
-    resolution: {integrity: sha512-mTCaukbdIjjoipj2E3Q5XoZM3ZxJWdzyHevf/LG/0PHlfF9Q85pxOM7B7A9MerFyxmRzz5kVlumgIvgDSG4CPg==}
-
-  '@fontsource/dm-mono@5.2.7':
-    resolution: {integrity: sha512-Ma1az2atTVgQWuOWwjuxx26p/6A6CU9HBNKq1CFV6YKpKhpswnf9ry9Ql4+T6bTZzkdtSfS6tjJvqZOljVzIFQ==}
+  '@fontsource-variable/outfit@5.2.8':
+    resolution: {integrity: sha512-4oUDCZx/Tcz6HZP423w/niqEH31Gks5IsqHV2ZZz1qKHaVIZdj2f0/S1IK2n8jl6Xo0o3N+3RjNHlV9R73ozQA==}
 
   '@jridgewell/gen-mapping@0.3.13':
     resolution: {integrity: sha512-2kkt/7niJ6MgEPxF0bYdQ6etZaA+fQvDcLKckhy1yIQOzaoKjBBjSj63/aLVjYE3qhRt5dvM+uUyfCg6UKCBbA==}
@@ -1955,9 +1949,7 @@ snapshots:
 
   '@fontsource-variable/bricolage-grotesque@5.2.10': {}
 
-  '@fontsource-variable/instrument-sans@5.2.8': {}
-
-  '@fontsource/dm-mono@5.2.7': {}
+  '@fontsource-variable/outfit@5.2.8': {}
 
   '@jridgewell/gen-mapping@0.3.13':
     dependencies:
