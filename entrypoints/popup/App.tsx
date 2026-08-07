@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type CSSProperties } from 'react';
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 import { browser } from 'wxt/browser';
 import {
   GROUP_COLORS,
@@ -6,6 +6,7 @@ import {
   getActiveHeaders,
   loadState,
   saveState,
+  type HeaderGroup,
   type HeaderleafState,
 } from '@/lib/headerleaf';
 import './App.css';
@@ -35,20 +36,27 @@ const LeafMark = () => (
 function App() {
   const [state, setState] = useState<HeaderleafState | null>(null);
   const [saveStatus, setSaveStatus] = useState<SaveStatus>('idle');
+  const [confirmingDelete, setConfirmingDelete] = useState(false);
+  const confirmTimer = useRef<number | null>(null);
 
   useEffect(() => {
     loadState()
       .then((saved) => setState(saved))
       .catch(() => setSaveStatus('error'));
+    return () => {
+      if (confirmTimer.current !== null) window.clearTimeout(confirmTimer.current);
+    };
   }, []);
 
   const activeGroup = useMemo(
-    () => state?.groups.find((group) => group.id === state.activeGroupId),
+    () => state?.groups.find((group) => group.id === state.activeGroupId) ?? state?.groups[0] ?? null,
     [state],
   );
   const activeCount = state ? getActiveHeaders(state).length : 0;
 
   const commit = (next: HeaderleafState) => {
+    if (confirmTimer.current !== null) window.clearTimeout(confirmTimer.current);
+    setConfirmingDelete(false);
     setState(next);
     setSaveStatus('saving');
     void saveState(next)
@@ -62,6 +70,9 @@ function App() {
       })
       .catch(() => setSaveStatus('error'));
   };
+
+  const countActiveHeaders = (group: HeaderGroup) =>
+    group.headers.filter((header) => header.enabled && header.key.trim()).length;
 
   const updateActiveGroup = (
     update: (group: NonNullable<typeof activeGroup>) => NonNullable<typeof activeGroup>,
@@ -80,7 +91,7 @@ function App() {
     const id = crypto.randomUUID();
     const newGroup = {
       id,
-      name: `Group ${state.groups.length + 1}`,
+      name: `Profile ${state.groups.length + 1}`,
       color: GROUP_COLORS[state.groups.length % GROUP_COLORS.length],
       headers: [createHeader()],
     };
@@ -92,11 +103,25 @@ function App() {
     const groups = state.groups
       .filter((group) => group.id !== activeGroup.id)
       .map((group, index) =>
-        /^Group \d+$/.test(group.name.trim())
-          ? { ...group, name: `Group ${index + 1}` }
+        /^Profile \d+$/.test(group.name.trim())
+          ? { ...group, name: `Profile ${index + 1}` }
           : group,
       );
     commit({ groups, activeGroupId: groups[0].id });
+  };
+
+  const handleDeleteClick = () => {
+    if (!state || state.groups.length === 1) return;
+
+    if (confirmingDelete) {
+      if (confirmTimer.current !== null) window.clearTimeout(confirmTimer.current);
+      setConfirmingDelete(false);
+      deleteActiveGroup();
+      return;
+    }
+
+    setConfirmingDelete(true);
+    confirmTimer.current = window.setTimeout(() => setConfirmingDelete(false), 2600);
   };
 
   const addHeader = () => {
@@ -144,19 +169,30 @@ function App() {
           </div>
         </div>
 
-        <nav className="group-list" aria-label="Header groups">
-          {state.groups.map((group) => (
-            <button
-              className={`group-tab ${group.id === state.activeGroupId ? 'is-active' : ''}`}
-              key={group.id}
-              onClick={() => commit({ ...state, activeGroupId: group.id })}
-              style={{ '--tab-color': group.color } as CSSProperties}
-              title={group.name}
-            >
-              <span className="tab-color" />
-              <span className="tab-name">{group.name || 'Untitled'}</span>
-            </button>
-          ))}
+        <nav className="group-list" aria-label="Profiles">
+          {state.groups.map((group) => {
+            const count = countActiveHeaders(group);
+            return (
+              <button
+                className={`group-tab ${group.id === state.activeGroupId ? 'is-active' : ''}`}
+                key={group.id}
+                onClick={() => commit({ ...state, activeGroupId: group.id })}
+                style={{ '--tab-color': group.color } as CSSProperties}
+                title={group.name}
+                aria-pressed={group.id === state.activeGroupId}
+                aria-label={`${group.name || 'Untitled'}, ${count} active header${count === 1 ? '' : 's'}`}
+              >
+                <span className="tab-color" />
+                <span className="tab-name">{group.name || 'Untitled'}</span>
+                <span
+                  className={`tab-count ${count > 0 ? 'has-headers' : ''}`}
+                  title={`${count} active headers`}
+                >
+                  {count}
+                </span>
+              </button>
+            );
+          })}
         </nav>
 
         <button className="new-group" onClick={addGroup} aria-label="New profile" title="New profile">
@@ -170,7 +206,7 @@ function App() {
           <div className="title-stack">
             <input
               className="group-title"
-              aria-label="Group name"
+              aria-label="Profile name"
               value={activeGroup.name}
               onChange={(event) =>
                 updateActiveGroup((group) => ({ ...group, name: event.target.value }))
@@ -183,17 +219,34 @@ function App() {
             <div className={`live-badge ${activeCount ? 'is-live' : ''} ${saveStatus === 'error' ? 'is-error' : ''}`}>
               <span />
               {saveStatus === 'error'
-                ? 'sync error'
+                ? 'Sync error'
                 : activeCount
                   ? `${activeCount} active`
-                  : 'inactive'}
+                  : 'No active headers'}
             </div>
+            {saveStatus === 'saving' || saveStatus === 'saved' ? (
+              <span className={`save-status is-${saveStatus}`} aria-hidden="true">
+                {saveStatus === 'saving' ? 'Saving…' : 'Saved'}
+              </span>
+            ) : null}
+            <span className="sr-only" role="status">
+              {saveStatus === 'saved' ? 'Saved' : saveStatus === 'error' ? 'Sync error' : ''}
+            </span>
             <button
-              className="icon-button"
-              onClick={deleteActiveGroup}
+              className={`icon-button delete-button ${confirmingDelete ? 'is-armed' : ''}`}
+              onClick={handleDeleteClick}
+              onKeyDown={(event) => {
+                if (event.key === 'Escape') setConfirmingDelete(false);
+              }}
               disabled={state.groups.length === 1}
-              aria-label="Delete group"
-              title={state.groups.length === 1 ? 'Keep at least one group' : 'Delete group'}
+              aria-label={confirmingDelete ? 'Confirm delete profile' : 'Delete profile'}
+              title={
+                state.groups.length === 1
+                  ? 'Keep at least one profile'
+                  : confirmingDelete
+                    ? 'Click again to delete'
+                    : 'Delete profile'
+              }
             >
               <TrashIcon />
             </button>
@@ -202,9 +255,9 @@ function App() {
 
         <section className="header-panel" aria-label={`${activeGroup.name} headers`}>
           <div className="column-headings">
-            <span>ON</span>
-            <span>KEY</span>
-            <span>VALUE</span>
+            <span>On</span>
+            <span>Key</span>
+            <span>Value</span>
             <span />
           </div>
 
@@ -257,16 +310,20 @@ function App() {
 
             {activeGroup.headers.length === 0 && (
               <div className="empty-state">
-                <span className="empty-glyph">H:</span>
-                <strong>No headers</strong>
-                <p>Add a row to this profile.</p>
+                <span className="empty-glyph">
+                  <LeafMark />
+                </span>
+                <strong>No headers yet</strong>
+                <p>Add a header to this profile.</p>
               </div>
             )}
           </div>
 
           <div className="panel-footer">
-            <button className="add-header" onClick={addHeader} aria-label="Add header" title="Add header">
+            <span className="footer-note">Applies to new requests</span>
+            <button className="add-header" onClick={addHeader} aria-label="Add header">
               <PlusIcon />
+              <span>Add header</span>
             </button>
           </div>
         </section>

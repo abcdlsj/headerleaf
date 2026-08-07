@@ -22,6 +22,7 @@ Headerleaf keeps request headers in named profiles. Select a profile, enable the
 - Switch the active profile with one click
 - Add, edit, enable, disable, and delete header rows
 - Apply headers to fetch, XHR, navigation, scripts, images, WebSockets, and other request types
+- Show the active header count on the toolbar icon
 - Store configuration locally in `chrome.storage.local`
 - Modify requests through the native Manifest V3 `declarativeNetRequest` API
 
@@ -39,7 +40,7 @@ Then:
 1. Open `chrome://extensions`.
 2. Enable **Developer mode**.
 3. Click **Load unpacked**.
-4. Select `.output/chrome-mv3/`.
+4. Select `dist/chrome-mv3/`.
 
 After rebuilding, click the extension's refresh button on `chrome://extensions`.
 
