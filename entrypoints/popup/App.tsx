@@ -6,6 +6,7 @@ import {
   getActiveHeaders,
   loadState,
   saveState,
+  type HeaderEntry,
   type HeaderGroup,
   type HeaderleafState,
 } from '@/lib/headerleaf';
@@ -25,6 +26,12 @@ const TrashIcon = () => (
   </svg>
 );
 
+const CloseIcon = () => (
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M6 6l12 12M18 6 6 18" />
+  </svg>
+);
+
 const LeafMark = () => (
   <svg className="leaf-mark" viewBox="0 0 42 42" aria-hidden="true">
     <rect x="13" y="7" width="23" height="27" rx="5" className="leaf-back" />
@@ -37,7 +44,16 @@ function App() {
   const [state, setState] = useState<HeaderleafState | null>(null);
   const [saveStatus, setSaveStatus] = useState<SaveStatus>('idle');
   const [confirmingDelete, setConfirmingDelete] = useState(false);
+  const [undoEntry, setUndoEntry] = useState<{
+    groupId: string;
+    index: number;
+    header: HeaderEntry;
+  } | null>(null);
+  const [newRowId, setNewRowId] = useState<string | null>(null);
   const confirmTimer = useRef<number | null>(null);
+  const statusTimer = useRef<number | null>(null);
+  const newRowTimer = useRef<number | null>(null);
+  const saveVersion = useRef(0);
 
   useEffect(() => {
     loadState()
@@ -45,6 +61,8 @@ function App() {
       .catch(() => setSaveStatus('error'));
     return () => {
       if (confirmTimer.current !== null) window.clearTimeout(confirmTimer.current);
+      if (statusTimer.current !== null) window.clearTimeout(statusTimer.current);
+      if (newRowTimer.current !== null) window.clearTimeout(newRowTimer.current);
     };
   }, []);
 
@@ -56,18 +74,32 @@ function App() {
 
   const commit = (next: HeaderleafState) => {
     if (confirmTimer.current !== null) window.clearTimeout(confirmTimer.current);
+    if (statusTimer.current !== null) window.clearTimeout(statusTimer.current);
     setConfirmingDelete(false);
+    setSaveStatus('idle');
     setState(next);
-    setSaveStatus('saving');
+    const version = ++saveVersion.current;
     void saveState(next)
       .then(async () => {
         const response = await browser.runtime.sendMessage({ type: 'headerleaf:sync' });
         if (response?.ok === false) throw new Error(response.error || 'Sync failed');
       })
       .then(() => {
-        setSaveStatus('saved');
-        window.setTimeout(() => setSaveStatus('idle'), 1100);
+        if (version !== saveVersion.current) return;
+        statusTimer.current = window.setTimeout(() => {
+          setSaveStatus('saved');
+          statusTimer.current = window.setTimeout(() => setSaveStatus('idle'), 1100);
+        }, 350);
       })
+      .catch(() => {
+        if (version === saveVersion.current) setSaveStatus('error');
+      });
+  };
+
+  const retryLoad = () => {
+    setSaveStatus('idle');
+    loadState()
+      .then((saved) => setState(saved))
       .catch(() => setSaveStatus('error'));
   };
 
@@ -125,10 +157,15 @@ function App() {
   };
 
   const addHeader = () => {
+    if (!activeGroup) return;
+    const header = createHeader();
     updateActiveGroup((group) => ({
       ...group,
-      headers: [...group.headers, createHeader()],
+      headers: [...group.headers, header],
     }));
+    setNewRowId(header.id);
+    if (newRowTimer.current !== null) window.clearTimeout(newRowTimer.current);
+    newRowTimer.current = window.setTimeout(() => setNewRowId(null), 320);
   };
 
   const updateHeader = (
@@ -144,17 +181,47 @@ function App() {
   };
 
   const deleteHeader = (id: string) => {
+    if (!activeGroup) return;
+    const index = activeGroup.headers.findIndex((header) => header.id === id);
+    const header = activeGroup.headers[index];
+    if (index < 0 || !header) return;
     updateActiveGroup((group) => ({
       ...group,
-      headers: group.headers.filter((header) => header.id !== id),
+      headers: group.headers.filter((item) => item.id !== id),
     }));
+    setUndoEntry({ groupId: activeGroup.id, index, header });
+  };
+
+  const undoDeleteHeader = () => {
+    if (!state || !undoEntry) return;
+    const groups = state.groups.map((group) => {
+      if (group.id !== undoEntry.groupId) return group;
+      const headers = [...group.headers];
+      headers.splice(Math.min(undoEntry.index, headers.length), 0, undoEntry.header);
+      return { ...group, headers };
+    });
+    commit({ ...state, groups, activeGroupId: undoEntry.groupId });
+    setUndoEntry(null);
+  };
+
+  const dismissUndo = () => {
+    setUndoEntry(null);
   };
 
   if (!state || !activeGroup) {
     return (
       <div className="loading-shell">
         <LeafMark />
-        <span>{saveStatus === 'error' ? 'Could not open Headerleaf' : 'Loading…'}</span>
+        {saveStatus === 'error' ? (
+          <>
+            <span>Could not open Headerleaf</span>
+            <button className="retry-button" onClick={retryLoad}>
+              Retry
+            </button>
+          </>
+        ) : (
+          <span>Loading…</span>
+        )}
       </div>
     );
   }
@@ -163,7 +230,8 @@ function App() {
     <div className="app-shell">
       <aside className="group-rail">
         <div className="brand">
-          <div className="brand-wordmark" aria-label="Headerleaf">
+          <LeafMark />
+          <div className="brand-wordmark">
             <span>header</span>
             <strong>leaf<span>.</span></strong>
           </div>
@@ -232,6 +300,9 @@ function App() {
             <span className="sr-only" role="status">
               {saveStatus === 'saved' ? 'Saved' : saveStatus === 'error' ? 'Sync error' : ''}
             </span>
+            <span className="sr-only" role="status">
+              {undoEntry ? 'Header deleted' : ''}
+            </span>
             <button
               className={`icon-button delete-button ${confirmingDelete ? 'is-armed' : ''}`}
               onClick={handleDeleteClick}
@@ -249,11 +320,12 @@ function App() {
               }
             >
               <TrashIcon />
+              {confirmingDelete ? <span className="delete-confirm-label">Delete?</span> : null}
             </button>
           </div>
         </header>
 
-        <section className="header-panel" aria-label={`${activeGroup.name} headers`}>
+        <section className="header-panel" aria-label={`${activeGroup.name || 'Untitled'} headers`}>
           <div className="column-headings">
             <span>On</span>
             <span>Key</span>
@@ -264,9 +336,8 @@ function App() {
           <div className="header-list">
             {activeGroup.headers.map((header, index) => (
               <div
-                className={`header-row ${header.enabled ? '' : 'is-disabled'}`}
+                className={`header-row ${header.enabled ? '' : 'is-disabled'} ${header.id === newRowId ? 'is-new' : ''}`}
                 key={header.id}
-                style={{ '--row-delay': `${Math.min(index, 8) * 28}ms` } as CSSProperties}
               >
                 <label className="check-wrap" title={header.enabled ? 'Disable header' : 'Enable header'}>
                   <input
@@ -301,7 +372,7 @@ function App() {
                   className="row-delete"
                   onClick={() => deleteHeader(header.id)}
                   aria-label={`Delete header ${index + 1}`}
-                  title="Delete row"
+                  title="Delete header"
                 >
                   <TrashIcon />
                 </button>
@@ -320,7 +391,17 @@ function App() {
           </div>
 
           <div className="panel-footer">
-            <span className="footer-note">Applies to new requests</span>
+            {undoEntry ? (
+              <div className="undo-row">
+                <span className="undo-label">Header deleted</span>
+                <button className="undo-action" onClick={undoDeleteHeader}>Undo</button>
+                <button className="undo-close" onClick={dismissUndo} aria-label="Dismiss">
+                  <CloseIcon />
+                </button>
+              </div>
+            ) : (
+              <span className="footer-note">Applies to new requests</span>
+            )}
             <button className="add-header" onClick={addHeader} aria-label="Add header">
               <PlusIcon />
               <span>Add header</span>
