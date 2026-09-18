@@ -1,8 +1,8 @@
 # Headerleaf Privacy Policy
 
-**Effective date: July 16, 2026**
+**Effective date: September 18, 2026**
 
-Headerleaf is a Chrome extension that lets users create profiles of custom request headers and apply the selected profile to outgoing browser requests.
+Headerleaf is a browser extension for Chrome and Chromium-based Edge that lets users create profiles of custom request headers and apply the selected profile to outgoing browser requests.
 
 ## Data collection
 
@@ -10,7 +10,7 @@ Headerleaf does not collect, transmit, sell, or share personal information, brow
 
 ## Local storage
 
-Headerleaf stores the following configuration locally on the user's device using `chrome.storage.local`:
+Headerleaf stores the following configuration locally on the user's device using the browser's extension storage:
 
 - Header profiles and profile names
 - Header keys and values
@@ -21,7 +21,7 @@ This configuration is not uploaded to Headerleaf, its developer, or any third-pa
 
 ## Request processing
 
-When a header is enabled in the selected profile, Headerleaf uses Chrome's `declarativeNetRequest` API to add that header to matching outgoing requests. The destination server receiving a request can therefore receive and process the header values configured by the user. Headerleaf does not independently receive or retain those requests or values.
+When a header is enabled in the selected profile, Headerleaf uses the browser's `declarativeNetRequest` API to add that header to matching outgoing requests. The destination server receiving a request can therefore receive and process the header values configured by the user. Headerleaf does not independently receive or retain those requests or values.
 
 ## Permissions
 
@@ -39,7 +39,7 @@ Headerleaf does not load or execute remote code. All JavaScript, fonts, and depe
 
 ## Data retention and deletion
 
-Configuration remains in the browser's local extension storage until the user changes it, clears the extension's data, or uninstalls Headerleaf. Uninstalling the extension removes its locally stored configuration according to Chrome's extension data handling behavior.
+Configuration remains in the browser's local extension storage until the user changes it, clears the extension's data, or uninstalls Headerleaf. Uninstalling the extension removes its locally stored configuration according to the browser's extension data handling behavior.
 
 ## Children's privacy
 

@@ -5,7 +5,7 @@
 <h1 align="center">Headerleaf</h1>
 
 <p align="center">
-  A compact, profile-based request header switcher for Chrome.
+  A compact, profile-based request header switcher for Chrome and Chromium-based Edge.
 </p>
 
 <p align="center">
@@ -13,6 +13,10 @@
 </p>
 
 ![Headerleaf Chrome extension](docs/images/chrome-web-store-1280x800.png)
+
+## Browser support
+
+Headerleaf targets Chromium-based browsers: Google Chrome and Microsoft Edge. Legacy EdgeHTML is not supported.
 
 ## What it does
 
@@ -23,7 +27,7 @@ Headerleaf keeps request headers in named profiles. Select a profile, enable the
 - Add, edit, enable, disable, and delete header rows
 - Apply headers to fetch, XHR, navigation, scripts, images, WebSockets, and other request types
 - Show the active header count on the toolbar icon
-- Store configuration locally in `chrome.storage.local`
+- Store configuration locally in the browser's extension storage
 - Modify requests through the native Manifest V3 `declarativeNetRequest` API
 
 Only the selected profile is active. Repeated header keys are de-duplicated, with the last enabled value winning.
@@ -35,14 +39,27 @@ pnpm install
 pnpm build
 ```
 
-Then:
+### Chrome
 
 1. Open `chrome://extensions`.
 2. Enable **Developer mode**.
 3. Click **Load unpacked**.
 4. Select `dist/chrome-mv3/`.
 
-After rebuilding, click the extension's refresh button on `chrome://extensions`.
+### Microsoft Edge
+
+```bash
+pnpm build:edge
+```
+
+Then:
+
+1. Open `edge://extensions`.
+2. Enable **Developer mode**.
+3. Click **Load unpacked**.
+4. Select `dist/edge-mv3/`.
+
+After rebuilding, click the extension's refresh button on the corresponding extensions page.
 
 ## Usage
 
@@ -52,7 +69,7 @@ After rebuilding, click the extension's refresh button on `chrome://extensions`.
 4. Use the checkbox to control whether that row is applied.
 5. Trigger a new request in the target tab.
 
-Header names may appear lowercased in Chrome DevTools. For example, `X-Debug-Mode` can be displayed as `x-debug-mode`.
+Header names may appear lowercased in browser DevTools. For example, `X-Debug-Mode` can be displayed as `x-debug-mode`.
 
 ## Permissions
 
@@ -66,24 +83,27 @@ Headerleaf does not send profile data to a server, inject scripts into pages, or
 
 ## Browser limitations
 
-Chrome restricts modification of certain request headers. Headers such as `Host`, `Content-Length`, `Connection`, `Sec-*`, and some `Origin` values may be rejected or controlled by the browser. Use a custom header such as `X-Debug-Mode` when validating an installation.
+Chromium browsers restrict modification of certain request headers. Headers such as `Host`, `Content-Length`, `Connection`, `Sec-*`, and some `Origin` values may be rejected or controlled by the browser. Use a custom header such as `X-Debug-Mode` when validating an installation.
 
 Rules apply to newly issued requests. Refresh the target page or repeat the request after changing a profile.
 
 ## Development
 
 ```bash
-pnpm dev       # Start WXT with an isolated Chrome profile
-pnpm compile   # Type-check the project
-pnpm build     # Build the unpacked Chrome extension
-pnpm zip       # Build a Chrome Web Store zip
+pnpm dev        # Start WXT with an isolated Chrome profile
+pnpm dev:edge   # Start WXT with an isolated Chromium Edge profile
+pnpm compile    # Type-check the project
+pnpm build      # Build the unpacked Chrome extension
+pnpm build:edge # Build the unpacked Chromium Edge extension
+pnpm zip        # Build a Chrome Web Store zip
+pnpm zip:edge   # Build a Chromium Edge zip
 ```
 
 The project uses:
 
 - [WXT](https://wxt.dev/) for extension tooling
 - React and TypeScript for the popup
-- Chrome Manifest V3 dynamic rules for request modification
+- Chromium Manifest V3 dynamic rules for request modification
 
 ## Store assets
 
